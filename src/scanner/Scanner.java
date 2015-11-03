@@ -22,6 +22,14 @@ public class Scanner {
      * @param args the command line arguments
      * @throws java.io.FileNotFoundException
      */
+    public static boolean IfComment(String line){
+        if(line.startsWith("{")&&line.endsWith("}"))
+        {
+            return true;
+        }
+        return false;
+    }
+    
     public static void main(String[] args) throws FileNotFoundException, IOException {
         // Reading From File
         BufferedReader file = new BufferedReader(new FileReader("tiny_sample_code.txt"));
@@ -31,6 +39,11 @@ public class Scanner {
         BufferedWriter output = new BufferedWriter(new FileWriter("scanner_output.txt"));
         
         while(line !=null){
+            if(IfComment(line))
+            {
+                line = file.readLine();
+                continue;
+            }
             output.write(line);
             output.newLine();
             line = file.readLine();
