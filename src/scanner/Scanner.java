@@ -60,24 +60,45 @@ public class Scanner {
                 }
                 switch(characters[i])
                 {
+                    
+                    //*************Start of White Spcaes State******************
                     case ' ':
                         continue;
+                    //*************End of White Spaces State********************
+                        
+                      
+                        
+                        
+                        
+                    //*************Start of Comment State***********************
                     case '{':
                         //State Of Comment
                         while(characters[i]!='}')i++;
                         break;
+                    //**************End of Comment State************************
                         
                         
-                    //INASSIGN State
+                        
+                        
+                        
+                        
+                    //*************Start of INASSIGN State**********************
                     case ':':
                         i++;
                         switch(characters[i])
                         {
                             case '=':
                                 output.write(":= :Special Symbol");
+                                output.newLine();
                                 break;
+                            default:
+                                i--;
                         }
                     break;
+                    //*************End of INASSIGN State************************
+                        
+                        
+                        
                 }
             }
         }
