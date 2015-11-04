@@ -11,6 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -45,10 +47,14 @@ public class Scanner {
         //Writing To File
         BufferedWriter output = new BufferedWriter(new FileWriter("scanner_output.txt"));
         
+        //List Contains New Recognized Tokens
+        List token = new ArrayList();
+        
         while(line !=null){
             char characters[] = line.toCharArray();
             for(int i=0;i<characters.length;i++)
             {
+                List state = new ArrayList();
                 char Num = 'n';
                 char Letter = 'n';
                 if(isNumber(characters[i]))
@@ -88,6 +94,7 @@ public class Scanner {
                         switch(characters[i])
                         {
                             case '=':
+                                token.add(":=");
                                 output.write(":= :Special Symbol");
                                 output.newLine();
                                 break;
@@ -96,6 +103,39 @@ public class Scanner {
                         }
                     break;
                     //*************End of INASSIGN State************************
+                        
+                        
+                        
+                        
+                    default:
+                    //****************Start of INNUM State**********************
+                        if(Num=='y')
+                        {
+                            while(isNumber(characters[i]))
+                            {
+                                state.add(characters[i]);
+                                i++;
+                            }
+                            for(int j=0;j<state.size();j++)
+                            {
+                                output.write(state.get(j).toString());
+                            }
+                            output.write(" :number");
+                            output.newLine();
+                            continue;
+                        }
+                    //****************End of INNUM State************************
+                    
+                    
+                    
+                    
+                        
+                     //**************Start of INID State************************
+                        else if(Letter=='y')
+                        {
+                            
+                        }
+                    //****************End of INID State*************************
                         
                         
                         
