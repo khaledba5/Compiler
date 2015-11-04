@@ -5,15 +5,20 @@ if :Reserved Word
 x :Identifier
 then :Reserved Word
 fact :Identifier
+:= :Special Symbol
 1 :number
 repeat :Reserved Word
+fact :Identifier
+:= :Special Symbol
+fact :Identifier
+x :Identifier
+x :Identifier
+:= :Special Symbol
+x :Identifier
+1 :number
 until :Reserved Word
 x :Identifier
 0 :number
 write :Reserved Word
 fact :Identifier
-output :Identifier
-factorial :Identifier
-of :Identifier
-x :Identifier
 end :Reserved Word

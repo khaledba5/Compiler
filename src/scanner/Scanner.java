@@ -119,7 +119,9 @@ public class Scanner {
                             {
                                 state.add(characters[i]);
                                 i++;
+                                if(characters.length==i)break;
                             }
+                            i--;
                             for(int j=0;j<state.size();j++)
                             {
                                 output.write(state.get(j).toString());
@@ -144,6 +146,7 @@ public class Scanner {
                                 i++;
                                 if(characters.length==i)break;
                             }
+                            i--;
                             String word[] = new String[state.size()];
                             StringBuilder builder = new StringBuilder();
                             for(int j=0;j<state.size();j++)
