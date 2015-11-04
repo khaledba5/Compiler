@@ -48,25 +48,25 @@ public class Scanner {
         //Writing To File
         BufferedWriter output = new BufferedWriter(new FileWriter("scanner_output.txt"));
         
-        //List Contains New Recognized Tokens
-        List token = new ArrayList();
+
         
         //Array Containing Reserved Words
         String reserved []={"if","then","else","end","repeat","until","read","write"};
+        char symbols []={'+','-','*','/','=','<','>',';'};
         
         while(line !=null){
             char characters[] = line.toCharArray();
             for(int i=0;i<characters.length;i++)
             {
-                List state = new ArrayList();
+                List state = new ArrayList();       //List Store Recognized Tokens
                 char Num = 'n';
                 char Letter = 'n';
                 if(isNumber(characters[i]))
                 {
-                    Num = 'y';
+                    Num = 'y';      //indicates this characters is digit
                 }else if(isLetter(characters[i]))
                 {
-                    Letter ='y';
+                    Letter ='y';    //indicates this character is letter
                 }
                 switch(characters[i])
                 {
@@ -98,7 +98,6 @@ public class Scanner {
                         switch(characters[i])
                         {
                             case '=':
-                                token.add(":=");
                                 output.write(":= :Special Symbol");
                                 output.newLine();
                                 break;
@@ -171,6 +170,37 @@ public class Scanner {
                             continue;
                         }
                     //****************End of INID State*************************
+                    
+                    
+                    
+                    
+                    //****************Special Symbols***************************
+                        else
+                        {
+                            for(int j=0;j<symbols.length;j++)
+                            {
+                                if(characters[i]==symbols[j])
+                                {
+                                    output.write(characters[i]);
+                                    output.write(" :Special Symbol");
+                                    output.newLine();
+                                    break;
+                                }else if(characters[i]=='(')
+                                {
+                                    int count =0;
+                                    while(characters[i]!=')')
+                                    {
+                                        i++;
+                                        count++;
+                                    }
+                                    output.write("() :Special Symbols");
+                                    output.newLine();
+                                    i = i-count;
+                                    break;
+                                }
+                            }
+                            
+                        }
                         
                         
                         
