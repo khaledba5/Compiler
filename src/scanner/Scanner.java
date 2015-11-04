@@ -22,32 +22,20 @@ public class Scanner {
      * @param args the command line arguments
      * @throws java.io.FileNotFoundException
      */
-    public static boolean IfComment(String line){
-        if(line.startsWith("{")&&line.endsWith("}"))
+    public static boolean isNumber(char x){
+        try
         {
-            return true;
-        }
-        return false;
-    }
-    public static int StartComment(String line){
-        if(line.contains("{"))
+            double d = Double.parseDouble(Character.toString(x));
+        }catch(NumberFormatException e)
         {
-            return line.indexOf("{");
+            return false;
         }
-        return -1;
+        return true;
     }
-    public static int EndComment(String line){
-        if(line.contains("}"))return line.indexOf("}");
-        return -1;
+    public static boolean isLetter(char x){
+        return Character.toString(x).matches("[a-zA-Z]+");
     }
-    public static boolean IfReserved(String line){
-        String reserved[] = {"if","then","else","end","repeat","until","read","write"};
-        for(int i=0;i<reserved.length;i++)
-        {
-            if(line.contains(reserved[i]))return true;
-        }
-        return false;
-    }
+ 
     
     public static void main(String[] args) throws FileNotFoundException, IOException {
         // Reading From File
@@ -58,21 +46,40 @@ public class Scanner {
         BufferedWriter output = new BufferedWriter(new FileWriter("scanner_output.txt"));
         
         while(line !=null){
-            int start =0;   //Index Indicate Start Of Comment
-            int end =0;     //Index Indicate End Of Comment
-            if(IfComment(line))
+            char characters[] = line.toCharArray();
+            for(int i=0;i<characters.length;i++)
             {
-                line = file.readLine(); 
-                continue;
+                char Num = 'n';
+                char Letter = 'n';
+                if(isNumber(characters[i]))
+                {
+                    Num = 'y';
+                }else if(isLetter(characters[i]))
+                {
+                    Letter ='y';
+                }
+                switch(characters[i])
+                {
+                    case ' ':
+                        continue;
+                    case '{':
+                        //State Of Comment
+                        while(characters[i]!='}')i++;
+                        break;
+                        
+                        
+                    //INASSIGN State
+                    case ':':
+                        i++;
+                        switch(characters[i])
+                        {
+                            case '=':
+                                output.write(":= :Special Symbol");
+                                break;
+                        }
+                    break;
+                }
             }
-            if(line.contains("{")&&line.contains("}"))
-            {
-                start = StartComment(line);
-                end = EndComment(line);
-            }
-            output.write(line);
-            output.newLine();
-            line = file.readLine();
         }
         output.close();
     }
