@@ -29,6 +29,25 @@ public class Scanner {
         }
         return false;
     }
+    public static int StartComment(String line){
+        if(line.contains("{"))
+        {
+            return line.indexOf("{");
+        }
+        return -1;
+    }
+    public static int EndComment(String line){
+        if(line.contains("}"))return line.indexOf("}");
+        return -1;
+    }
+    public static boolean IfReserved(String line){
+        String reserved[] = {"if","then","else","end","repeat","until","read","write"};
+        for(int i=0;i<reserved.length;i++)
+        {
+            if(line.contains(reserved[i]))return true;
+        }
+        return false;
+    }
     
     public static void main(String[] args) throws FileNotFoundException, IOException {
         // Reading From File
@@ -39,10 +58,17 @@ public class Scanner {
         BufferedWriter output = new BufferedWriter(new FileWriter("scanner_output.txt"));
         
         while(line !=null){
+            int start =0;   //Index Indicate Start Of Comment
+            int end =0;     //Index Indicate End Of Comment
             if(IfComment(line))
             {
-                line = file.readLine();
+                line = file.readLine(); 
                 continue;
+            }
+            if(line.contains("{")&&line.contains("}"))
+            {
+                start = StartComment(line);
+                end = EndComment(line);
             }
             output.write(line);
             output.newLine();
