@@ -145,16 +145,18 @@ public class Scanner {
                                 if(characters.length==i)break;
                             }
                             String word[] = new String[state.size()];
+                            StringBuilder builder = new StringBuilder();
                             for(int j=0;j<state.size();j++)
                             {
                                 word[j] = state.get(j).toString();
                                 output.write(state.get(j).toString());
+                                builder.append(word[j]);
                             }
-                            String Final = Arrays.toString(word);
+                            String Final = builder.toString();
                             int flag =0;
                             for(int j=0;j<reserved.length;j++)
                             {
-                                if(Final==reserved[j])
+                                if(Final.equals(reserved[j]))
                                 {
                                     flag =1;
                                     break;

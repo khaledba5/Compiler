@@ -1,19 +1,19 @@
-read :Identifier
+read :Reserved Word
 x :Identifier
-if :Identifier
+if :Reserved Word
 0 :number
 x :Identifier
-then :Identifier
+then :Reserved Word
 fact :Identifier
 1 :number
-repeat :Identifier
-until :Identifier
+repeat :Reserved Word
+until :Reserved Word
 x :Identifier
 0 :number
-write :Identifier
+write :Reserved Word
 fact :Identifier
 output :Identifier
 factorial :Identifier
 of :Identifier
 x :Identifier
-end :Identifier
+end :Reserved Word
