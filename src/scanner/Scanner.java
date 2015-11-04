@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -49,6 +50,9 @@ public class Scanner {
         
         //List Contains New Recognized Tokens
         List token = new ArrayList();
+        
+        //Array Containing Reserved Words
+        String reserved []={"if","then","else","end","repeat","until","read","write"};
         
         while(line !=null){
             char characters[] = line.toCharArray();
@@ -134,6 +138,32 @@ public class Scanner {
                         else if(Letter=='y')
                         {
                             
+                            while(isLetter(characters[i]))
+                            {
+                                state.add(characters[i]);
+                                i++;
+                                if(characters.length==i)break;
+                            }
+                            String word[] = new String[state.size()];
+                            for(int j=0;j<state.size();j++)
+                            {
+                                word[j] = state.get(j).toString();
+                                output.write(state.get(j).toString());
+                            }
+                            String Final = Arrays.toString(word);
+                            int flag =0;
+                            for(int j=0;j<reserved.length;j++)
+                            {
+                                if(Final==reserved[j])
+                                {
+                                    flag =1;
+                                    break;
+                                }
+                            }
+                            if(flag==1)output.write(" :Reserved Word");
+                            else output.write(" :Identifier");
+                            output.newLine();
+                            continue;
                         }
                     //****************End of INID State*************************
                         
@@ -141,6 +171,7 @@ public class Scanner {
                         
                 }
             }
+            line = file.readLine();
         }
         output.close();
     }
